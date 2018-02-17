@@ -1,0 +1,109 @@
+{% extends "base/dashboard_base_v_2.html" %}
+{% load crispy_forms_tags %}
+{% block wrapper %}
+<br>
+<div class="row">
+  <div class="col-lg-12">
+    {% if messages %}
+         {% for message in messages %}
+         <div class="alert alert-success" role="alert">
+          <strong>{{ message }}</strong> 
+        </div>
+         {% endfor %}
+    {% endif %}
+  </div>
+</div>
+<button class="btn btn-primary" data-toggle="modal" data-target="#addapp">Add Field</button>
+<!-- Modal -->
+<div class="modal fade" id="addapp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span>
+          <span class="sr-only">Close</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">Add Field</h4>
+      </div>
+      <div class="modal-body">
+        <form role='form' action="{% url 'models:create_field' %}" method="post">{% csrf_token %}
+        <div>
+          <input type="text" hidden="" value="{{model_obj_id}}" name="model_obj_id" id="model_obj_id">
+          {{form | crispy}}
+        </div>
+      </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button class="btn btn-primary" >Add</button>
+        </div>
+      </div>
+  </div>
+</div>
+</form>
+<!-- Modal End -->
+{% include "base/generic_data_grid_table.html" %}
+
+<script src="../../../static/js/jquery-2.0.2.js"></script>
+
+<script type="text/javascript">
+  function reSetFields(){
+    $('#id_related_name').css({"display" : "none"});
+    $('label[for="id_related_name"]').hide();
+    $('#id_foreign_key').css({"display" : "none"});
+    $('label[for="id_foreign_key"]').hide();
+    $('#id_many_to_many_key').css({"display" : "none"});
+    $('label[for="id_many_to_many_key"]').hide();
+    $('#id_max_length').css({"display" : "none"});
+    $('label[for="id_max_length"]').hide();
+    $('#id_max_digits').css({"display" : "none"});
+    $('label[for="id_max_digits"]').hide();
+    $('#id_decimal_places').css({"display" : "none"});
+    $('label[for="id_decimal_places"]').hide();
+    $('#id_choices').css({"display" : "none"});
+    $('label[for="id_choices"]').hide();
+    $("p").hide(".help-block");
+  }
+  $( document ).ready(function() {
+    reSetFields();
+});
+  $('#id_field_type').change(function() {
+        reSetFields();
+        if ($("#id_field_type :selected").val() == 17){
+            $('#id_foreign_key').css({"display" : "block"});
+            $('label[for="id_foreign_key"]').show();
+            $('#id_related_name').css({"display" : "block"});
+            $('label[for="id_related_name"]').show();
+        }
+        else if($("#id_field_type :selected").val() == 18){
+            $('#id_many_to_many_key').css({"display" : "block"});
+            $('label[for="id_many_to_many_key"]').show();
+            $('#id_related_name').css({"display" : "block"});
+            $('label[for="id_related_name"]').show();
+        }
+        else if($("#id_field_type :selected").val() == 11 || $("#id_field_type :selected").val() == 10 || $("#id_field_type :selected").val() == 6){
+            $('#id_max_length').css({"display" : "block"});
+            $('label[for="id_max_length"]').show();
+        }
+        else if($("#id_field_type :selected").val() == 8){
+            $('#id_decimal_places').css({"display" : "block"});
+            $('label[for="id_decimal_places"]').show();
+            $("#id_decimal_places").attr('required',true);
+            $('#id_max_digits').css({"display" : "block"});
+            $('label[for="id_max_digits"]').show();
+            $("#id_max_digits").attr('required',true);
+        }
+        else if($("#id_field_type :selected").val() == 9 ){
+            $('#id_choices').css({"display" : "block"});
+            $('label[for="id_choices"]').show();
+            $("p").show(".help-block");
+            $('#id_max_length').css({"display" : "block"});
+            $('label[for="id_max_length"]').show();
+        }
+        else if($("#id_field_type :selected").val() == 2 ){
+            $('#id_choices').css({"display" : "block"});
+            $('label[for="id_choices"]').show();
+            $("p").show(".help-block");
+        }
+  });
+</script>
+{% endblock %}
