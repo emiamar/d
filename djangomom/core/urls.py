@@ -6,11 +6,8 @@ from django.conf.urls import url
 from .views import *
 
 urlpatterns = [
-    # url(r'^$',
-    #     'django.contrib.auth.views.login',
-    #     {'template_name': 'signin.html'}),
     url(r'^signin/$', views.login_user, name='login_user'),
-    url(r'^$', HomeView.as_view(), name='home'),
+    url(r'^$', views.login_user, name='home'),
     url(r'^logout/$',
         'django.contrib.auth.views.logout',
         {'template_name': 'signin.html'}, name='logout'),

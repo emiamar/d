@@ -1,0 +1,31 @@
+syntax: glob
+*=0.2.0
+*.log
+*.pyc
+**.pyc
+**pyc
+*.db
+*.orig
+*.save
+*.1
+*.gif
+*.templates/home3.html
+*.templates/home_base3.html
+*.DS_Store
+.git/**
+.htmlcov/**
+htmlcov/**
+htmlcov/*
+project_directory/**
+.uploaded_images/**
+.static/static-only/**
+static-only/**
+uploaded_images/**
+.coverage/**
+*db.sqlite3
+*.sqlite3
+*.pyc
+*.coverage
+
+syntax: regexp
+^\.pyc/
