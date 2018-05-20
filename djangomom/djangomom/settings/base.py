@@ -11,7 +11,12 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
-import ConfigParser
+
+
+try:
+    import configparser as cp
+except ImportError:
+    import ConfigParser as cp
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -20,7 +25,7 @@ CONFIG_FILE = os.path.normpath(
     os.path.join(BASE_DIR, '../', "../", "config.cfg")
 )
 
-config = ConfigParser.ConfigParser()
+config = cp.ConfigParser()
 config.read(CONFIG_FILE)
 
 admin = config.get('local', 'default_from_email')
