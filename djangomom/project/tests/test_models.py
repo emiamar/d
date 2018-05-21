@@ -1,5 +1,4 @@
 import os
-import subprocess
 
 from django.test import TestCase
 
@@ -15,4 +14,8 @@ class ProjectCreateUtilsTest(TestCase):
         is_path = os.path.isdir(self.project.project_dir())
         self.assertTrue(is_path)
         print os.path.realpath(self.project.project_dir())
-        os.system('rm -r {0}'.format(os.path.realpath(self.project.project_dir())))
+        import time
+        time.sleep(3)
+        os.system(
+            'rm -r {0}'.format(os.path.realpath(
+                self.project.project_dir())))
