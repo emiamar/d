@@ -30,6 +30,8 @@ config.read(CONFIG_FILE)
 
 admin = config.get('local', 'default_from_email')
 
+project_python_path = config.get('local', 'project_python_path')
+print project_python_path
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/

@@ -6,11 +6,9 @@ import logging
 
 from importlib import import_module
 
-from djangomom.settings.base import BASE_DIR
+from djangomom.settings.base import BASE_DIR, project_python_path
 
 from django.core.management import call_command
-
-project_python_path = "/Users/amarsavalagi/Envs/djangomom/bin/python2.7"
 
 
 project_directory = os.path.normpath(os.path.join(
@@ -53,6 +51,7 @@ def startapp_v2(app_code_name, project_dir, *args, **kwargs):
         "About to creating app for project dir {0}".format(
             project_dir))
     app_path = "{0}/apps/{1}".format(project_dir, app_code_name)
+    print app_path
     try:
         x = subprocess.Popen(
             ['mkdir', app_path]
